@@ -1,8 +1,10 @@
 # Smart Inventory & Restock Prediction System
 
-A portfolio project that combines synthetic inventory data, chronological analytics, machine-learning experiments, SQLite, and a Streamlit application. It demonstrates how a restock decision-support workflow can be built from data generation through inference.
+A decision-support portfolio project combining synthetic inventory records, public retail transaction analysis, chronological model experiments, SQLite, and a Streamlit application.
 
 > **Data and model scope:** All inventory observations are synthetic. Holdout results below measure performance on a synthetic chronological split and do not establish accuracy on real store operations. Predictions are decision support, not guarantees.
+
+> **Real-data scope:** The optional UCI Online Retail II workflow uses historical transactions to examine sales activity. It does not contain stock-on-hand, store locations, supplier lead times, or replenishment events, so it cannot validate the synthetic restock classifier or calculate operational reorder quantities.
 
 ## Problem and objective
 
@@ -11,6 +13,7 @@ Inventory teams need visibility into stock levels and restock activity across pr
 ## Features
 
 - Monitor product, store, inventory-record, low-stock, and out-of-stock counts from SQLite.
+- Explore real historical transaction volume, product sales, and customer-country patterns from UCI Online Retail II in a separate sales workspace.
 - Search and filter inventory by product name or ID, category, store, and date.
 - Add validated observations while preventing duplicate product/store/timestamp records.
 - Explore stock levels, daily and monthly patterns, categories, stores, and restock events with interactive charts.
@@ -21,7 +24,7 @@ Inventory teams need visibility into stock levels and restock activity across pr
 
 ## Technology
 
-Python 3.15.2 · Pandas · NumPy · Scikit-learn · SQLite · Streamlit · Altair · Joblib · Matplotlib · Seaborn
+Python 3.15.2 · Pandas · NumPy · Scikit-learn · SQLite · Streamlit · Altair · Joblib · OpenPyXL · Matplotlib · Seaborn
 
 The application charts use Altair's interactive Vega-Lite rendering. Matplotlib and Seaborn support the analysis and evaluation reports. A Jupyter installation is optional for opening the EDA notebook and is not part of the Streamlit runtime dependency set.
 
@@ -76,7 +79,7 @@ These results describe the provided synthetic data only. They do not show how ei
 │   ├── dashboard.py
 │   ├── config.py
 │   ├── components/          # shared layout and charts
-│   ├── pages/               # six application pages
+│   ├── pages/               # seven application pages
 │   └── services/             # queries, writes, startup, and inference
 ├── data/
 │   ├── synthetic_inventory.csv
@@ -91,13 +94,18 @@ These results describe the provided synthetic data only. They do not show how ei
 │   ├── preprocessing.py
 │   ├── feature_engineering.py
 │   ├── model_*.py
-│   └── evaluate_model.py
+│   ├── evaluate_model.py
+│   └── uci_online_retail.py
 ├── tests/
 ├── requirements.txt
 └── README.md
 ```
 
 `data/inventory.db` is a local mutable database and is intentionally excluded from Git. The three CSV datasets, saved model pipelines, evaluation artifacts, source, notebook, and tests are included so a clone can reproduce the workflow and serve inference.
+
+The UCI source workbook and derived sales summaries live under `data/external/`, which is ignored by Git because the data can be fetched again. The application fetches it only when a user opens Sales intelligence and selects the fetch action. The source workbook is about 43.5 MB; the prepared file aggregates positive transaction lines by date, product stock code, and customer country. It excludes cancellation invoices and invalid/non-positive sale lines, and writes a provenance record alongside the summary.
+
+UCI attribution: Chen, D. (2012). *Online Retail II* [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D. Licensed under CC BY 4.0. The historical timestamps have no timezone metadata and are used as source-local calendar dates.
 
 ## Windows installation and local run
 
@@ -118,6 +126,19 @@ python -m streamlit run app/dashboard.py
 The `init` and `seed` commands are safe to repeat. The app also initializes its schema and imports `data/processed_inventory.csv` automatically if it starts with an empty inventory database. It does not replace an existing database that already contains observations.
 
 To view or execute the EDA notebook, optionally install Jupyter with `python -m pip install jupyter`, then run `python -m jupyter notebook notebooks/inventory_eda.ipynb` from the project root.
+
+### Public sales data
+
+The application has a separate **Sales intelligence** page. Select **Fetch UCI sales dataset** to download the official UCI workbook and prepare the local daily summary. To fetch or rebuild it from PowerShell:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.uci_online_retail
+.\.venv\Scripts\python.exe -m src.uci_online_retail --refresh
+```
+
+The first command downloads the source if it is not already present. `--refresh` rebuilds the derived CSV from the local workbook; it does not re-download unless the workbook is missing. The app excludes cancellation invoices, non-positive quantities/prices, invalid dates, and missing product or country keys. `sales_value_gbp` is quantity × unit price for kept sale lines; returns are excluded, so this is not net accounting revenue. Sales days with no line are absent rather than assumed to be zero demand.
+
+The UCI download is cached locally in `data/external/`; it does not modify any synthetic, processed, or engineered inventory dataset or the inventory SQLite database. On Community Cloud the source must be fetched after app startup, and the generated local file is not durable across restarts.
 
 Set `INVENTORY_DB_PATH` to choose a different local database file. Absolute paths and paths relative to the project root are supported. The database schema and imported records are managed by the existing `src.database` module.
 

@@ -20,6 +20,9 @@ __pycache__/
 *.sqlite3
 *.sqlite3-*
 
+# Downloaded public datasets and derived external data (reproducible via src/uci_online_retail.py)
+data/external/
+
 # Local tooling, logs, and operating-system files
 .ipython/
 .idea/

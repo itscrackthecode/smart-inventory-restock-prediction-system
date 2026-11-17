@@ -213,10 +213,11 @@ class AppServiceTests(unittest.TestCase):
         self.assertEqual(table["Threshold"].tolist(), [0.75, 0.53])
         self.assertEqual(report["evaluation"]["rows"], 2160)
 
-    def test_application_registers_all_six_pages(self):
+    def test_application_registers_all_seven_pages(self):
         titles = [page[1] for group in PAGE_SPECS.values() for page in group]
-        self.assertEqual(len(titles), 6)
+        self.assertEqual(len(titles), 7)
         self.assertIn("Restock predictions", titles)
+        self.assertIn("Sales intelligence", titles)
 
 
 class DatabaseStartupTests(unittest.TestCase):

@@ -13,13 +13,14 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.components.layout import apply_theme
-from app.pages import about, analytics, inventory_explorer, model_performance, overview, predictions
+from app.pages import about, analytics, inventory_explorer, model_performance, overview, predictions, sales_intelligence
 from app.services.startup import ensure_database_ready
 
 
 PAGE_SPECS = {
     "WORKSPACE": [
         (overview.render, "Overview", ":material/space_dashboard:", "overview", True),
+        (sales_intelligence.render, "Sales intelligence", ":material/query_stats:", "sales-intelligence", False),
         (inventory_explorer.render, "Inventory explorer", ":material/inventory_2:", "inventory", False),
         (analytics.render, "Analytics", ":material/monitoring:", "analytics", False),
     ],
@@ -58,17 +59,13 @@ def main() -> None:
             f"Initialized demo data · {startup_report.seeded_rows:,} inventory observations"
         )
 
-    navigation = st.navigation(
-        {
-            section: [
-                st.Page(renderer, title=title, icon=icon, url_path=url_path, default=is_default)
-                if is_default else st.Page(renderer, title=title, icon=icon, url_path=url_path)
-                for renderer, title, icon, url_path, is_default in pages
-            ]
-            for section, pages in PAGE_SPECS.items()
-        },
-        position="sidebar",
-    )
+    navigation_pages = {}
+    for section, specs in PAGE_SPECS.items():
+        navigation_pages[section] = []
+        for renderer, title, icon, url_path, is_default in specs:
+            page = st.Page(renderer, title=title, icon=icon, url_path=url_path, default=is_default)
+            navigation_pages[section].append(page)
+    navigation = st.navigation(navigation_pages, position="sidebar")
     navigation.run()
 
 

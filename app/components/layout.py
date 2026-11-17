@@ -17,6 +17,19 @@ def apply_theme() -> None:
         [data-testid="stSidebar"] * { color: #f3f5ed; }
         [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p { color: #d3dfd9; }
         h1, h2, h3 { color: var(--forest-deep); letter-spacing: -.025em; }
+        .stockwise-hero { background: linear-gradient(116deg, #103c32 0%, #1d5b4a 100%);
+            color: #f4f7f1; padding: clamp(1.5rem, 4vw, 3rem); border-radius: 20px;
+            margin: .25rem 0 1.3rem; box-shadow: 0 12px 30px rgba(13,57,47,.12); }
+        .stockwise-hero h1 { color: #fff; font-size: clamp(2rem, 4vw, 3.15rem);
+            line-height: 1.06; letter-spacing: -.045em; margin: 0 0 .75rem; max-width: 800px; }
+        .stockwise-hero p { color: #dcebe2; font-size: 1.05rem; line-height: 1.55;
+            margin: 0; max-width: 780px; }
+        .stockwise-cta { display: inline-flex; gap: .55rem; align-items: center;
+            color: var(--forest-deep) !important; background: #fff; border: 1px solid var(--line);
+            border-radius: 9px; padding: .65rem .9rem; margin: 0 0 1.1rem;
+            font-weight: 650; text-decoration: none !important; transition: transform .16s ease, box-shadow .16s ease; }
+        .stockwise-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(13,57,47,.09); }
+        .source-note { color: var(--muted); font-size: .82rem; margin: -.45rem 0 1rem; }
         [data-testid="stMetric"] { background: #fff; border: 1px solid var(--line);
             border-radius: 12px; padding: 16px 18px; box-shadow: 0 2px 8px rgba(13,57,47,.045); }
         [data-testid="stMetricLabel"] { color: var(--muted); }
@@ -28,6 +41,7 @@ def apply_theme() -> None:
         .page-subtitle { color: var(--muted); margin-top: -.35rem; margin-bottom: 1.1rem; }
         .section-note { color: var(--muted); font-size: .88rem; margin-top: -.45rem; }
         [data-testid="stDataFrame"] { border: 1px solid var(--line); border-radius: 10px; }
+        [data-testid="stPlotlyChart"], [data-testid="stVegaLiteChart"] { border-radius: 12px; }
         div.stButton > button[kind="primaryFormSubmit"], div.stButton > button[kind="primary"] {
             background: var(--forest); border-color: var(--forest); color: white; border-radius: 9px; }
         div.stButton > button[kind="primaryFormSubmit"]:hover, div.stButton > button[kind="primary"]:hover {

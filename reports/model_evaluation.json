@@ -1,0 +1,557 @@
+{
+  "evaluation": {
+    "dataset": "data\\engineered_inventory.csv",
+    "rows": 2160,
+    "feature_date_start": "2025-03-13T00:00:00+00:00",
+    "feature_date_end": "2025-03-30T00:00:00+00:00",
+    "target_date_end": "2025-03-31T00:00:00+00:00",
+    "positive_negative_distribution": {
+      "0": {
+        "count": 1889,
+        "percentage": 87.45
+      },
+      "1": {
+        "count": 271,
+        "percentage": 12.55
+      }
+    },
+    "holdout_start": "2025-03-13T00:00:00+00:00",
+    "training_rows": 8400,
+    "purged_boundary_rows": 120,
+    "purged_feature_date": "2025-03-12T00:00:00+00:00",
+    "training_label_date_end": "2025-03-12T00:00:00+00:00",
+    "threshold_validation": {
+      "rows": 2160,
+      "feature_date_start": "2025-02-22T00:00:00+00:00",
+      "feature_date_end": "2025-03-11T00:00:00+00:00",
+      "fit_rows": 6120,
+      "purged_boundary_rows": 120,
+      "method": "Temporary copies of the Phase 6 pipeline are fit on earlier training dates. Threshold maximizes validation F1 over 0.05\u20130.95 in 0.01 steps; ties prefer higher recall, then precision, then threshold.",
+      "holdout_used_for_threshold_selection": false
+    },
+    "holdout_used_for_fit_or_tuning": false,
+    "saved_model_artifacts_modified": false
+  },
+  "models": {
+    "logistic_regression": {
+      "threshold_selection": {
+        "threshold": 0.75,
+        "selection_metric": "validation F1",
+        "tie_break_order": [
+          "higher recall",
+          "higher precision",
+          "higher threshold"
+        ],
+        "validation_f1": 0.6540284360189573,
+        "validation_recall": 0.7666666666666667,
+        "validation_precision": 0.5702479338842975,
+        "validation_rows": 2160,
+        "candidate_count": 91
+      },
+      "holdout_default_threshold": {
+        "threshold": 0.5,
+        "accuracy": 0.850925925925926,
+        "precision": 0.45595854922279794,
+        "recall": 0.974169741697417,
+        "f1": 0.6211764705882353,
+        "roc_auc": 0.9452843125572601,
+        "average_precision": 0.6291423736164462,
+        "confusion_matrix": [
+          [
+            1574,
+            315
+          ],
+          [
+            7,
+            264
+          ]
+        ],
+        "confusion_matrix_order": [
+          [
+            "true_negative",
+            "false_positive"
+          ],
+          [
+            "false_negative",
+            "true_positive"
+          ]
+        ],
+        "classification_report": {
+          "no_restock": {
+            "precision": 0.9955724225173941,
+            "recall": 0.8332451032292219,
+            "f1-score": 0.9072046109510087,
+            "support": 1889.0
+          },
+          "restock": {
+            "precision": 0.45595854922279794,
+            "recall": 0.974169741697417,
+            "f1-score": 0.6211764705882353,
+            "support": 271.0
+          },
+          "accuracy": 0.850925925925926,
+          "macro avg": {
+            "precision": 0.725765485870096,
+            "recall": 0.9037074224633195,
+            "f1-score": 0.764190540769622,
+            "support": 2160.0
+          },
+          "weighted avg": {
+            "precision": 0.9278708671179332,
+            "recall": 0.850925925925926,
+            "f1-score": 0.8713186729703088,
+            "support": 2160.0
+          }
+        }
+      },
+      "holdout_selected_threshold": {
+        "threshold": 0.75,
+        "accuracy": 0.8949074074074074,
+        "precision": 0.5594594594594594,
+        "recall": 0.7638376383763837,
+        "f1": 0.6458658346333853,
+        "roc_auc": 0.9452843125572601,
+        "average_precision": 0.6291423736164462,
+        "confusion_matrix": [
+          [
+            1726,
+            163
+          ],
+          [
+            64,
+            207
+          ]
+        ],
+        "confusion_matrix_order": [
+          [
+            "true_negative",
+            "false_positive"
+          ],
+          [
+            "false_negative",
+            "true_positive"
+          ]
+        ],
+        "classification_report": {
+          "no_restock": {
+            "precision": 0.964245810055866,
+            "recall": 0.9137109581789307,
+            "f1-score": 0.9382984506659419,
+            "support": 1889.0
+          },
+          "restock": {
+            "precision": 0.5594594594594594,
+            "recall": 0.7638376383763837,
+            "f1-score": 0.6458658346333853,
+            "support": 271.0
+          },
+          "accuracy": 0.8949074074074074,
+          "macro avg": {
+            "precision": 0.7618526347576626,
+            "recall": 0.8387742982776571,
+            "f1-score": 0.7920821426496636,
+            "support": 2160.0
+          },
+          "weighted avg": {
+            "precision": 0.9134601151430761,
+            "recall": 0.8949074074074074,
+            "f1-score": 0.9016089881914868,
+            "support": 2160.0
+          }
+        }
+      }
+    },
+    "random_forest": {
+      "threshold_selection": {
+        "threshold": 0.53,
+        "selection_metric": "validation F1",
+        "tie_break_order": [
+          "higher recall",
+          "higher precision",
+          "higher threshold"
+        ],
+        "validation_f1": 0.6341463414634146,
+        "validation_recall": 0.9148148148148149,
+        "validation_precision": 0.48526522593320237,
+        "validation_rows": 2160,
+        "candidate_count": 91
+      },
+      "holdout_default_threshold": {
+        "threshold": 0.5,
+        "accuracy": 0.8569444444444444,
+        "precision": 0.46557971014492755,
+        "recall": 0.948339483394834,
+        "f1": 0.6245443499392467,
+        "roc_auc": 0.9422047237941941,
+        "average_precision": 0.6008299718526853,
+        "confusion_matrix": [
+          [
+            1594,
+            295
+          ],
+          [
+            14,
+            257
+          ]
+        ],
+        "confusion_matrix_order": [
+          [
+            "true_negative",
+            "false_positive"
+          ],
+          [
+            "false_negative",
+            "true_positive"
+          ]
+        ],
+        "classification_report": {
+          "no_restock": {
+            "precision": 0.9912935323383084,
+            "recall": 0.8438327157226045,
+            "f1-score": 0.9116385473262797,
+            "support": 1889.0
+          },
+          "restock": {
+            "precision": 0.46557971014492755,
+            "recall": 0.948339483394834,
+            "f1-score": 0.6245443499392467,
+            "support": 271.0
+          },
+          "accuracy": 0.8569444444444444,
+          "macro avg": {
+            "precision": 0.728436621241618,
+            "recall": 0.8960860995587192,
+            "f1-score": 0.7680914486327632,
+            "support": 2160.0
+          },
+          "weighted avg": {
+            "precision": 0.9253359185353425,
+            "recall": 0.8569444444444444,
+            "f1-score": 0.8756188586726288,
+            "support": 2160.0
+          }
+        }
+      },
+      "holdout_selected_threshold": {
+        "threshold": 0.53,
+        "accuracy": 0.8643518518518518,
+        "precision": 0.47924528301886793,
+        "recall": 0.9372693726937269,
+        "f1": 0.634207240948814,
+        "roc_auc": 0.9422047237941941,
+        "average_precision": 0.6008299718526853,
+        "confusion_matrix": [
+          [
+            1613,
+            276
+          ],
+          [
+            17,
+            254
+          ]
+        ],
+        "confusion_matrix_order": [
+          [
+            "true_negative",
+            "false_positive"
+          ],
+          [
+            "false_negative",
+            "true_positive"
+          ]
+        ],
+        "classification_report": {
+          "no_restock": {
+            "precision": 0.9895705521472392,
+            "recall": 0.8538909475913181,
+            "f1-score": 0.9167377095765843,
+            "support": 1889.0
+          },
+          "restock": {
+            "precision": 0.47924528301886793,
+            "recall": 0.9372693726937269,
+            "f1-score": 0.634207240948814,
+            "support": 271.0
+          },
+          "accuracy": 0.8643518518518518,
+          "macro avg": {
+            "precision": 0.7344079175830536,
+            "recall": 0.8955801601425225,
+            "f1-score": 0.7754724752626991,
+            "support": 2160.0
+          },
+          "weighted avg": {
+            "precision": 0.9255436318075223,
+            "recall": 0.8643518518518518,
+            "f1-score": 0.8812905998552298,
+            "support": 2160.0
+          }
+        }
+      }
+    }
+  },
+  "model_comparison": {
+    "more_actual_restocks_detected_by_recall": "random_forest",
+    "fewer_false_alarms_by_count": "logistic_regression",
+    "higher_positive_precision": "logistic_regression",
+    "tradeoff": "At validation-selected thresholds, Logistic Regression has recall 0.764 and precision 0.559; Random Forest has recall 0.937 and precision 0.479. Higher recall captures more true restocks but may also increase false alarms.",
+    "practical_guidance": "For an alerting workflow that prioritizes finding restocks, Random Forest is the relative recall leader on this holdout. For fewer false alerts, Logistic Regression has fewer false positives. The best operating choice depends on the business cost of missed restocks versus unnecessary alerts.",
+    "reliability_statement": "These are results on synthetic data. Neither pipeline is established as reliable for retailer operations until evaluated on representative real inventory data and a cost-based alert policy."
+  },
+  "features": {
+    "random_forest_importance": [
+      {
+        "transformed_feature": "numeric__stock_quantity",
+        "source_feature": "stock_quantity",
+        "importance": 0.6515117990802252
+      },
+      {
+        "transformed_feature": "numeric__days_since_last_restock_model",
+        "source_feature": "days_since_last_restock_model",
+        "importance": 0.1334144949129306
+      },
+      {
+        "transformed_feature": "numeric__historical_restock_count",
+        "source_feature": "historical_restock_count",
+        "importance": 0.043020427917873
+      },
+      {
+        "transformed_feature": "numeric__day_of_week",
+        "source_feature": "day_of_week",
+        "importance": 0.04034993821455412
+      },
+      {
+        "transformed_feature": "categorical__availability_status_out_of_stock",
+        "source_feature": "availability_status",
+        "importance": 0.02374064063798529
+      },
+      {
+        "transformed_feature": "categorical__availability_status_in_stock",
+        "source_feature": "availability_status",
+        "importance": 0.016538216090607863
+      },
+      {
+        "transformed_feature": "numeric__month",
+        "source_feature": "month",
+        "importance": 0.013093448630825674
+      },
+      {
+        "transformed_feature": "categorical__category_Grocery",
+        "source_feature": "category",
+        "importance": 0.006592006116750574
+      },
+      {
+        "transformed_feature": "categorical__store_location_Seattle, WA",
+        "source_feature": "store_location",
+        "importance": 0.006171803699834836
+      },
+      {
+        "transformed_feature": "categorical__store_location_Atlanta, GA",
+        "source_feature": "store_location",
+        "importance": 0.006149341556662306
+      },
+      {
+        "transformed_feature": "categorical__store_location_Austin, TX",
+        "source_feature": "store_location",
+        "importance": 0.005971033285387978
+      },
+      {
+        "transformed_feature": "categorical__category_Beverages",
+        "source_feature": "category",
+        "importance": 0.005408399721629823
+      },
+      {
+        "transformed_feature": "categorical__store_location_Denver, CO",
+        "source_feature": "store_location",
+        "importance": 0.0053642328508098575
+      },
+      {
+        "transformed_feature": "categorical__store_location_Chicago, IL",
+        "source_feature": "store_location",
+        "importance": 0.005361387997199478
+      },
+      {
+        "transformed_feature": "categorical__store_location_Boston, MA",
+        "source_feature": "store_location",
+        "importance": 0.005261151186570948
+      },
+      {
+        "transformed_feature": "categorical__category_Electronics",
+        "source_feature": "category",
+        "importance": 0.005248272126790848
+      },
+      {
+        "transformed_feature": "categorical__category_Household",
+        "source_feature": "category",
+        "importance": 0.00524455156324148
+      },
+      {
+        "transformed_feature": "categorical__category_Personal Care",
+        "source_feature": "category",
+        "importance": 0.005161149060306428
+      },
+      {
+        "transformed_feature": "categorical__category_Stationery",
+        "source_feature": "category",
+        "importance": 0.005039081585899283
+      },
+      {
+        "transformed_feature": "categorical__previous_stock_status_out_of_stock",
+        "source_feature": "previous_stock_status",
+        "importance": 0.002734722270144349
+      },
+      {
+        "transformed_feature": "categorical__days_since_last_restock_valid_False",
+        "source_feature": "days_since_last_restock_valid",
+        "importance": 0.0025938604467676076
+      },
+      {
+        "transformed_feature": "categorical__days_since_last_restock_valid_True",
+        "source_feature": "days_since_last_restock_valid",
+        "importance": 0.002583382243197824
+      },
+      {
+        "transformed_feature": "categorical__previous_stock_status_in_stock",
+        "source_feature": "previous_stock_status",
+        "importance": 0.0022791836978910737
+      },
+      {
+        "transformed_feature": "categorical__previous_stock_status_unknown",
+        "source_feature": "previous_stock_status",
+        "importance": 0.0011674751059136844
+      }
+    ],
+    "logistic_regression_coefficients": [
+      {
+        "transformed_feature": "categorical__availability_status_in_stock",
+        "source_feature": "availability_status",
+        "coefficient": 1.5466891645375365
+      },
+      {
+        "transformed_feature": "numeric__historical_restock_count",
+        "source_feature": "historical_restock_count",
+        "coefficient": 0.40922826551492236
+      },
+      {
+        "transformed_feature": "categorical__category_Personal Care",
+        "source_feature": "category",
+        "coefficient": 0.361136247645263
+      },
+      {
+        "transformed_feature": "categorical__previous_stock_status_unknown",
+        "source_feature": "previous_stock_status",
+        "coefficient": 0.35812942661314184
+      },
+      {
+        "transformed_feature": "categorical__store_location_Seattle, WA",
+        "source_feature": "store_location",
+        "coefficient": 0.35570777686305444
+      },
+      {
+        "transformed_feature": "categorical__days_since_last_restock_valid_False",
+        "source_feature": "days_since_last_restock_valid",
+        "coefficient": 0.3280558513415571
+      },
+      {
+        "transformed_feature": "numeric__days_since_last_restock_model",
+        "source_feature": "days_since_last_restock_model",
+        "coefficient": 0.21876236604264718
+      },
+      {
+        "transformed_feature": "categorical__store_location_Denver, CO",
+        "source_feature": "store_location",
+        "coefficient": 0.09074640614036884
+      },
+      {
+        "transformed_feature": "categorical__category_Household",
+        "source_feature": "category",
+        "coefficient": 0.030995907737258077
+      },
+      {
+        "transformed_feature": "categorical__store_location_Chicago, IL",
+        "source_feature": "store_location",
+        "coefficient": -0.0017183940418359033
+      },
+      {
+        "transformed_feature": "categorical__category_Beverages",
+        "source_feature": "category",
+        "coefficient": -0.014679988110784158
+      },
+      {
+        "transformed_feature": "numeric__day_of_week",
+        "source_feature": "day_of_week",
+        "coefficient": -0.03845636088412888
+      },
+      {
+        "transformed_feature": "categorical__store_location_Boston, MA",
+        "source_feature": "store_location",
+        "coefficient": -0.08493499973000702
+      },
+      {
+        "transformed_feature": "categorical__store_location_Austin, TX",
+        "source_feature": "store_location",
+        "coefficient": -0.08640955859484553
+      },
+      {
+        "transformed_feature": "categorical__category_Stationery",
+        "source_feature": "category",
+        "coefficient": -0.08689269297061288
+      },
+      {
+        "transformed_feature": "categorical__previous_stock_status_out_of_stock",
+        "source_feature": "previous_stock_status",
+        "coefficient": -0.10712591375749798
+      },
+      {
+        "transformed_feature": "categorical__category_Grocery",
+        "source_feature": "category",
+        "coefficient": -0.10974773427760802
+      },
+      {
+        "transformed_feature": "categorical__category_Electronics",
+        "source_feature": "category",
+        "coefficient": -0.13874218356881207
+      },
+      {
+        "transformed_feature": "categorical__previous_stock_status_in_stock",
+        "source_feature": "previous_stock_status",
+        "coefficient": -0.2089339564008782
+      },
+      {
+        "transformed_feature": "categorical__store_location_Atlanta, GA",
+        "source_feature": "store_location",
+        "coefficient": -0.23132167418196795
+      },
+      {
+        "transformed_feature": "categorical__days_since_last_restock_valid_True",
+        "source_feature": "days_since_last_restock_valid",
+        "coefficient": -0.28598629488679544
+      },
+      {
+        "transformed_feature": "numeric__month",
+        "source_feature": "month",
+        "coefficient": -0.32848599790252947
+      },
+      {
+        "transformed_feature": "categorical__availability_status_out_of_stock",
+        "source_feature": "availability_status",
+        "coefficient": -1.5046196080827778
+      },
+      {
+        "transformed_feature": "numeric__stock_quantity",
+        "source_feature": "stock_quantity",
+        "coefficient": -4.404707893975058
+      }
+    ],
+    "interpretation_note": "These values describe fitted model associations, not causes. Positive logistic coefficients raise fitted log-odds and negative coefficients lower them, holding other encoded inputs fixed. Numeric coefficients are per standard deviation; one-hot terms are conditional contributions relative to the fitted intercept and other features, not simple category-versus-reference effects because all levels are encoded."
+  },
+  "figures": [
+    "figures/logistic_regression_confusion_matrix.png",
+    "figures/random_forest_confusion_matrix.png",
+    "figures/roc_curve_comparison.png",
+    "figures/precision_recall_curve_comparison.png",
+    "figures/model_metric_comparison.png",
+    "figures/random_forest_feature_importance.png",
+    "figures/logistic_regression_coefficients.png"
+  ]
+}

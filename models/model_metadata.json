@@ -1,0 +1,102 @@
+{
+  "project": "Smart Inventory & Restock Prediction System",
+  "target": "target_next_day_restock",
+  "target_definition": "restock_occurred on the next daily observation for the same product/store",
+  "split_strategy": {
+    "method": "global chronological holdout by unique feature dates",
+    "test_size": 0.2,
+    "holdout_start": "2025-03-13T00:00:00+00:00",
+    "training_feature_start": "2025-01-01T00:00:00+00:00",
+    "training_feature_end": "2025-03-11T00:00:00+00:00",
+    "boundary_rule": "A training feature row is retained only when its next-day label date is strictly before the holdout start; crossing rows are purged.",
+    "train_rows": 8400,
+    "holdout_rows": 2160,
+    "purged_boundary_rows": 120,
+    "train_target_distribution": {
+      "0": {
+        "count": 7317,
+        "percentage": 87.11
+      },
+      "1": {
+        "count": 1083,
+        "percentage": 12.89
+      }
+    },
+    "holdout_target_distribution_report_only": {
+      "0": {
+        "count": 1889,
+        "percentage": 87.45
+      },
+      "1": {
+        "count": 271,
+        "percentage": 12.55
+      }
+    }
+  },
+  "feature_columns": [
+    "category",
+    "store_location",
+    "stock_quantity",
+    "availability_status",
+    "previous_stock_status",
+    "historical_restock_count",
+    "days_since_last_restock_model",
+    "days_since_last_restock_valid",
+    "day_of_week",
+    "month"
+  ],
+  "categorical_features": [
+    "category",
+    "store_location",
+    "availability_status",
+    "previous_stock_status",
+    "days_since_last_restock_valid"
+  ],
+  "numeric_features": [
+    "stock_quantity",
+    "historical_restock_count",
+    "days_since_last_restock_model",
+    "day_of_week",
+    "month"
+  ],
+  "excluded_columns": [
+    "data_source",
+    "days_since_last_restock",
+    "product_id",
+    "product_name",
+    "restock_occurred",
+    "store_id",
+    "target_next_day_restock",
+    "timestamp"
+  ],
+  "preprocessing": {
+    "categorical": "Most-frequent imputation, then OneHotEncoder(handle_unknown='ignore').",
+    "numeric": "Median imputation fitted on training rows; Logistic Regression scales values; Random Forest leaves values unscaled.",
+    "restock_age": "Unverified baseline values are masked in the Phase 5 model feature; age is median-imputed from training rows and its validity flag is one-hot encoded."
+  },
+  "models": {
+    "logistic_regression": {
+      "class_weight": "balanced",
+      "random_state": 42,
+      "max_iter": 1000
+    },
+    "random_forest": {
+      "class_weight": "balanced",
+      "random_state": 42,
+      "n_estimators": 250,
+      "max_features": "sqrt",
+      "min_samples_leaf": 2,
+      "n_jobs": -1
+    }
+  },
+  "fit_rows": 8400,
+  "holdout_used_for_fit_or_selection": false,
+  "phase_note": "Phase 6 training only; holdout performance evaluation is deferred to Phase 7.",
+  "python_version": "3.15.2",
+  "pandas_version": "3.1.1",
+  "scikit_learn_version": "1.9.1",
+  "artifacts": {
+    "logistic_regression": "models\\logistic_regression_pipeline.joblib",
+    "random_forest": "models\\random_forest_pipeline.joblib"
+  }
+}

@@ -141,10 +141,14 @@ Tests use temporary SQLite files. They do not need to modify the local inventory
 
 ## GitHub and Streamlit Community Cloud
 
-The intended public portfolio repository is `smart-inventory-restock-prediction-system`; the Streamlit entry point is `app/dashboard.py`. The root `requirements.txt` pins the packages used to build the saved pipelines and run the project, and `.streamlit/config.toml` supplies the theme. No secrets are required.
+**Live application:** [smart-inventory-restock-prediction-system.streamlit.app](https://smart-inventory-restock-prediction-system.streamlit.app/)
+
+The public portfolio repository is [itscrackthecode/smart-inventory-restock-prediction-system](https://github.com/itscrackthecode/smart-inventory-restock-prediction-system); the Streamlit entry point is `app/dashboard.py`. The root `requirements.txt` pins the packages used to build the saved pipelines and run the project, and `.streamlit/config.toml` supplies the theme. No secrets are required.
+
+Community Cloud's deployment settings offered Python 3.14, which was selected for the live app. The saved Scikit-learn 1.9.1 pipelines loaded successfully there, and both model prediction paths were exercised. The local training environment uses Python 3.15.2.
 
 The Community Cloud app creates a separate SQLite database at the configured project-relative `data/inventory.db` path when no inventory database exists, initializes its schema, and seeds it from the committed processed CSV. The repository's mutable SQLite database is ignored and is not uploaded. This keeps hosted demo writes separate from the laptop database.
 
 Community Cloud does **not guarantee persistence of local filesystem data**. Hosted observations and prediction history can disappear after a restart, rebuild, or redeployment. The hosted SQLite database is only for a disposable demonstration; it is not durable storage. Local SQLite writes persist on the laptop. A durable multi-user hosted app would require a persistent external database and its credentials, which are not part of this project phase.
 
-To publish, push the public `main` branch to GitHub, connect the repository to Streamlit Community Cloud, select `app/dashboard.py`, and select Python 3.15 in the deployment's advanced settings to match the saved pipelines' runtime. Do not provide a public app URL until deployment has completed and the live app has been checked.
+The deployed app uses `main` and `app/dashboard.py`. Community Cloud will rebuild it when this repository's `main` branch changes.
